@@ -4,6 +4,9 @@ on the topic of it looking like a jumbled mess, due to the way that extended asc
 
 **This is by no means secure, although it is fairly secure**, don't use it for sending military secrets or encrypting drives, use AES instead. It can be modified to be more secure by changing the salt function a bit and making the key encrypt / decrypt differently based on the length of the keyword or something which is might do for nerdtalk-002 when I release that.
 
+The key length is really important. Do not just put the key as "Tea" or anything else that is short.
+It is recommended to make the key a quote from a movie or a book as this makes it a nice length.
+
 ![image](https://github.com/user-attachments/assets/1aa02317-97a7-4aeb-9ade-88d362ca6cb1)
 ![image](https://github.com/user-attachments/assets/14c270de-27c8-4310-bb01-df06fb6e90fe)
 
