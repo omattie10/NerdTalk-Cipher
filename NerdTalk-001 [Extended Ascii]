@@ -1,0 +1,73 @@
+# https://github.com/omattie10/NerdTalk-Cipher/
+from random import randint
+import time
+import math
+
+root = math.sqrt
+
+def get_key_shifts(key_word):
+    key_word = key_word.upper()
+    return [ord(letter) % 256 for letter in key_word] # change to 128 for normal ascii I guess, there's also 2 more "256" as the bottom of the code that will need to be changed too
+
+def generate_salt(length): # this defines what the salt can be made up of
+    letters = "QWERTYUIOPASDFGHJKLZXCVBNMqwertyuiopasdfghjklzxcvbnm" # the letters that can be used in the salt, it's recommended to keep it to letters and not use numbers unless you're sending over a password or a calculation as the numbers can make it obvious where the salt is.
+    return ''.join(letters[randint(0, 25)] for _ in range(length))
+
+def get_salt_length(key_word, short_word): # the short word is used for a more "randomised" salt length.
+    return max(1, int((len(key_word) * math.sqrt(((len(key_word) / (len(short_word) )) * 3))))) # the longer the key, the more salt it has which can improve security by masking the true length of the message.
+
+def inputs():
+    global choice
+    global message
+    global key_word
+    global short_word
+    choice = input("Do you want to encode or decode the message? ").lower()
+    message = input("Enter the message: ")
+    key_word = input("Enter the key: ")
+    short_word = input("Enter a short string of letters (no more than 20 characters, more than 5 characters): ")
+    # preventing user error / enables self debugging, this is to make the program more available to a wider audience rather than having to explain it to them manually.
+    if choice == "" or message == "" or key_word == "" or short_word == "":
+        print("You need to have an input for everything.")
+        inputs()
+    if len(key_word) < 5:
+        print("You need a more sensibly sized key word.")
+        inputs()
+    if len(short_word) > 10:
+        print("That is too long. The short word is designed to be short to help with randomness without being truly random as true random would take away from user inputs.")
+        inputs()
+    return choice, message, key_word, short_word
+
+inputs()
+
+time.sleep(1)
+
+global choice
+global message
+global key_word
+global short_word
+
+key_shifts = get_key_shifts(key_word)
+salt_len = get_salt_length(key_word, short_word)
+
+translated = ''
+key_index = 0
+
+if choice == 'encode':
+    salt = generate_salt(salt_len)
+    message += salt
+    for symbol in message:
+        ascii_val = (ord(symbol) + key_shifts[key_index]) % 256
+        translated += chr(ascii_val)
+        key_index = (key_index + 1) % len(key_shifts)
+
+elif choice == 'decode':
+    for symbol in message:
+        ascii_val = (ord(symbol) - key_shifts[key_index]) % 256
+        translated += chr(ascii_val)
+        key_index = (key_index + 1) % len(key_shifts)
+    translated = translated[:-salt_len]
+
+else:
+    print("Please choose encode or decode.")
+
+print(f'{choice.capitalize()}d message: {translated}')
