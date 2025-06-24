@@ -12,7 +12,15 @@ It is recommended to make the key a quote from a movie or a book as this makes i
 
 btw its space and caps sensitive due them having unique extended ascii values so when you copy and paste the encoded message to decode it, make sure to remove a space at the front.
 
+
+
 To do list:
+
+
   -User interface
+
+  
   -Copy encoded cipher to clipboard
+
+  
   -improved security which will be released in nerdtalk-002
