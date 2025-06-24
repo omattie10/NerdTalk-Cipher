@@ -11,3 +11,8 @@ It is recommended to make the key a quote from a movie or a book as this makes i
 ![image](https://github.com/user-attachments/assets/14c270de-27c8-4310-bb01-df06fb6e90fe)
 
 btw its space and caps sensitive due them having unique extended ascii values so when you copy and paste the encoded message to decode it, make sure to remove a space at the front.
+
+To do list:
+  -User interface
+  -Copy encoded cipher to clipboard
+  -improved security which will be released in nerdtalk-002
